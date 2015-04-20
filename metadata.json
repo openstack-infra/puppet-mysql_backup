@@ -1,5 +1,5 @@
 {
-  "name": "openstackci-mysql_backup",
+  "name": "openstackinfra-mysql_backup",
   "version": "0.0.1",
   "author": "OpenStack CI",
   "summary": "Puppet module for MySQL Backup",
