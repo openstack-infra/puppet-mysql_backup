@@ -54,7 +54,7 @@ define mysql_backup::backup_remote (
     ],
   }
 
-  include logrotate
+  include ::logrotate
   logrotate::file { "${name}-rotate":
     log     => "${dest_dir}/${name}.sql.gz",
     options => [

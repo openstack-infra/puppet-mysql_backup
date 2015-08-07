@@ -41,7 +41,7 @@ define mysql_backup::backup (
     require => File[$dest_dir],
   }
 
-  include logrotate
+  include ::logrotate
   logrotate::file { "${name}-rotate":
     log     => "${dest_dir}/${name}.sql.gz",
     options => [
