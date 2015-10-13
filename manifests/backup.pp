@@ -13,8 +13,14 @@ define mysql_backup::backup (
   $dest_dir = '/var/backups/mysql_backups',
   $rotation = 'daily',
   $num_backups = '30',
+  # DEPRECATED
   $defaults_file = '/etc/mysql/debian.cnf'
 ) {
+
+  include ::mysql_backup::params
+
+  warning("Parameter defaults_file is not used anymore. It will be automatically set as /root/.${name}_db.conf")
+
   # Wrap in check as there may be mutliple backup defines backing
   # up to the same dir.
   if ! defined(File[$dest_dir]) {
@@ -26,15 +32,24 @@ define mysql_backup::backup (
     }
   }
 
-  if ! defined(Package['mysql-client']) {
-    package { 'mysql-client':
+  $defaults_file_real = "/root/.${name}_db.cnf"
+  file { $defaults_file_real:
+    ensure  => present,
+    mode    => '0400',
+    owner   => 'root',
+    group   => 'root',
+    content => template('mysql_backup/my.cnf.erb'),
+  }
+
+  if ! defined(Package[$::mysql_backup::params::mysql_client_package]) {
+    package { $::mysql_backup::params::mysql_client_package:
       ensure => present,
     }
   }
 
   cron { "${name}-backup":
     ensure  => present,
-    command => "/usr/bin/mysqldump --defaults-file=${defaults_file} --opt --ignore-table mysql.event --all-databases | gzip -9 > ${dest_dir}/${name}.sql.gz",
+    command => "/usr/bin/mysqldump --defaults-file=${defaults_file_real} --opt --ignore-table mysql.event --all-databases | gzip -9 > ${dest_dir}/${name}.sql.gz",
     minute  => $minute,
     hour    => $hour,
     weekday => $day,
