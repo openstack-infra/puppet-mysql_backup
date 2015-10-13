@@ -17,6 +17,9 @@ define mysql_backup::backup_remote (
   $rotation = 'daily',
   $num_backups = '30'
 ) {
+
+  include mysql_backup::params
+
   # Wrap in check as there may be mutliple backup defines backing
   # up to the same dir.
   if ! defined(File[$dest_dir]) {
@@ -36,8 +39,8 @@ define mysql_backup::backup_remote (
     content => template('mysql_backup/my.cnf.erb'),
   }
 
-  if ! defined(Package['mysql-client']) {
-    package { 'mysql-client':
+  if ! defined(Package[$::mysql_backup::params::mysql_client_package]) {
+    package { $::mysql_backup::params::mysql_client_package:
       ensure => present,
     }
   }
