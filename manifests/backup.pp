@@ -7,13 +7,16 @@
 # /usr/bin.
 #
 define mysql_backup::backup (
-  $minute = '0',
-  $hour = '0',
-  $day = '*',
-  $dest_dir = '/var/backups/mysql_backups',
-  $rotation = 'daily',
-  $num_backups = '30',
-  $defaults_file = '/etc/mysql/debian.cnf'
+  # The parameters below are grouped in violation of style guide
+  # to save readable configuration of cron. All other parameters
+  # are grouped properly.
+  $day           = '*',
+  $hour          = '0',
+  $minute        = '0',
+  $defaults_file = '/etc/mysql/debian.cnf',
+  $dest_dir      = '/var/backups/mysql_backups',
+  $num_backups   = '30',
+  $rotation      = 'daily',
 ) {
   # Wrap in check as there may be mutliple backup defines backing
   # up to the same dir.
