@@ -39,11 +39,7 @@ define mysql_backup::backup_remote (
     content => template('mysql_backup/my.cnf.erb'),
   }
 
-  if ! defined(Package['mysql-client']) {
-    package { 'mysql-client':
-      ensure => present,
-    }
-  }
+  include ::mysql::client::install
 
   cron { "${name}-backup":
     ensure  => present,

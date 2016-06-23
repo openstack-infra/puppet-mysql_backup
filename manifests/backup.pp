@@ -29,11 +29,7 @@ define mysql_backup::backup (
     }
   }
 
-  if ! defined(Package['mysql-client']) {
-    package { 'mysql-client':
-      ensure => present,
-    }
-  }
+  include ::mysql::client::install
 
   cron { "${name}-backup":
     ensure  => present,
