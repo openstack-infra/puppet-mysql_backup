@@ -47,7 +47,7 @@ define mysql_backup::backup_remote (
 
   cron { "${name}-backup":
     ensure  => present,
-    command => "/usr/bin/mysqldump --defaults-file=${defaults_file} --opt --ignore-table mysql.event --all-databases | gzip -9 > ${dest_dir}/${name}.sql.gz",
+    command => "/usr/bin/mysqldump --defaults-file=${defaults_file} --opt --ignore-table mysql.event --all-databases --single-transaction | gzip -9 > ${dest_dir}/${name}.sql.gz",
     minute  => $minute,
     hour    => $hour,
     weekday => $day,
