@@ -4,7 +4,7 @@
   "author": "OpenStack CI",
   "summary": "Puppet module for MySQL Backup",
   "license": "Apache 2.0",
-  "source": "git://git.openstack.org/openstack-infra/puppet-mysql_backup.git",
+  "source": "https://git.openstack.org/openstack-infra/puppet-mysql_backup.git",
   "project_page": "http://docs.openstack.org/infra/system-config/",
   "issues_url": "https://storyboard.openstack.org/#!/project/802",
   "dependencies": []
