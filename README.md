@@ -1,3 +1,3 @@
-# OpenStack MySQL Backup Module
+# This repo has moved to OpenDev
 
-This module installs and configures MySQL Backup
+It can now be found at [https://opendev.org/opendev/puppet-mysql_backup](https://opendev.org/opendev/puppet-mysql_backup)
